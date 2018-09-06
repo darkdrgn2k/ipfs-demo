@@ -8,14 +8,16 @@
             var socket = io.connect('http://' + document.domain + ':' + location.port);
             socket.on('connect', function() {
                 console.log("Connected");
-                socket.emit('success', {data: 'I\'m connected!'});
-
-                socket.on('update', function(data) {
+                socket.emit('success', {data: 'I\'m connected!'});  
+            });
+            socket.on('update', function(data) {
                     console.log("Received update");
                     console.log(data.data);
                     // XXX: change line below to not have a port
-                    document.getElementById("image").src = 'http://' + document.domain + ':8082' + data.data;
-                });
+                    document.getElementById("image").src = 'http://' + document.domain + ':8080' + data.data;
+            });
+            socket.on('disconnect', function(reason) {
+                console.log(reason);
             });
         </script>
     </head>
